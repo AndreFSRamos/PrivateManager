@@ -18,7 +18,7 @@ public class Item {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Short id;
 	
-	@Column(length = 255, nullable = false, unique = true)
+	@Column(length = 255, nullable = false)
 	private String descricao;
 	
 	@Column( nullable = false)

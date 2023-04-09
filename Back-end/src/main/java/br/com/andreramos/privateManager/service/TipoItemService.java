@@ -15,16 +15,10 @@ public class TipoItemService {
 
 	@Autowired
 	private TipoitemDAO _tipoitemDAO;
-	
-	
-	
-	
+
 	public List<Tipoitem> ToList(){
 		return _tipoitemDAO.findAll();
 	}
-	
-	
-	
 	
 	public ResponseEntity<Tipoitem> ToEdit(Short id, Tipoitem newTipoItem){
 		Optional<Tipoitem> oldtipoitem = _tipoitemDAO.findById(id);
