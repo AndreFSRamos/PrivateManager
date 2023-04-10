@@ -2,9 +2,7 @@
   <v-data-table :headers="header" :items="produtos" :items-per-page="20" class="elevation-1">
    
     <template v-slot:top>
-      <v-alert show  prominent :type="menssager.type" v-for="menssager in menssagers" :key="menssager.texto">
-        {{ menssager.texto }}
-      </v-alert>
+      <v-alert show  prominent :type="menssager.type" v-for="menssager in menssagers" :key="menssager.texto">{{ menssager.texto }}</v-alert>
       <v-toolbar flat>
         
         <v-toolbar-title> Lista de Gastos </v-toolbar-title>
@@ -24,7 +22,7 @@
               <v-container>
                 <v-form ref="form" v-model="valid" lazy-validation>
                 <v-row>
-                  <v-col cols="12" >
+                  <v-col cols="12">
                     <v-text-field v-model="newRegister.descricao" label="DESCRIÇÃO *" required></v-text-field>
                   </v-col>
                   <v-col cols="12">
@@ -36,7 +34,7 @@
                   <v-col cols="12">
                     <v-select v-model="newRegister.formaPagamennto" :items="formaPagementos" label="FORMA DE PAGAMENTO *" required></v-select>
                   </v-col>
-                  <v-col cols="12" >
+                  <v-col cols="12">
                     <v-text-field v-model="newRegister.valor" value="10.00" prefix="$" label="VALOR *" type="number" required></v-text-field>
                   </v-col>
                 </v-row>
@@ -47,9 +45,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red" text @click="close"> Cancelar </v-btn>
-              <v-btn color="blue darken-1" text @click="save()">
-                Confirmar
-              </v-btn>
+              <v-btn color="blue darken-1" text @click="save()">Confirmar</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -59,9 +55,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red" text @click="closeDelete">Cancelar</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm()"
-                >Confirmar</v-btn
-              >
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm()">Confirmar</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -106,9 +100,9 @@ export default {
     produtos: [],
     formaPagementos: [],
     tipo: [],
-    popupadd: true,
     dialog: false,
     dialogDelete: false,
+    
     editedIndex: -1,
   }),
 
@@ -132,6 +126,30 @@ export default {
   },
 
   methods: {
+    
+    editItem(item) {
+      this.editedIndex = item.id
+      this.newRegister = item
+      this.dialog = true;
+    },
+
+    deleteItem(item) {
+      this.dialogDelete =true
+      this.editedIndex = item.id
+    },
+
+    
+
+    close() {
+      this.dialog = false;
+      this.editedIndex = -1;
+    },
+
+    closeDelete() {
+      this.dialogDelete = false
+      this.editedIndex = -1;
+    },
+
     initialize() {
      this.$http.get('/items')
         .then((response) => {this.produtos = response.data;});
@@ -152,15 +170,6 @@ export default {
             });
         }).catch(() => {});
     },
-    editItem(item) {
-      this.editedIndex = item.id
-      this.dialog = true;
-    },
-
-    deleteItem(item) {
-      this.dialogDelete =true
-      this.editedIndex = item.id
-    },
 
     deleteItemConfirm() {
       this.$http.delete("/items/"+this.editedIndex).then(()=>{
@@ -169,16 +178,6 @@ export default {
         this.menssagers.push({texto:"Ocorreu um erro e não foi possivel excluir o item!.", type:"error"});
       }),
       this.dialogDelete = false
-    },
-
-    close() {
-      this.dialog = false;
-      this.editedIndex = -1;
-    },
-
-    closeDelete() {
-      this.dialogDelete = false
-      this.editedIndex = -1;
     },
 
     save() {

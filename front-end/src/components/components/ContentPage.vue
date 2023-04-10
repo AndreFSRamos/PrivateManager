@@ -10,17 +10,17 @@
 <script lang="ts">
 
 export default{ 
+    name: "ContentPage",
     data(){
         return  {
             changeWidthSidebar :false,
             items:[]
         }
     },
-    name: "ContentPage",
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .content-right{
     padding:20px;
 }</style>

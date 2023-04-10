@@ -2,9 +2,9 @@
 <div>
     <v-navigation-drawer v-model="drawer" app clipped  mini-variant> 
         <div class="mb-9"></div>
-        <router-link :to="{name:'home'}"><v-btn icon="" class="d-block text-center mx-auto mb-9"><Dashborad></Dashborad></v-btn></router-link> 
-        <router-link :to="{name:'view'}"><v-btn icon="" class="d-block text-center mx-auto mb-9"><List></List></v-btn></router-link> 
-        <router-link :to="{name:'lista_endpoints'}"> <v-btn icon="" class="d-block text-center mx-auto mb-9"><Api/></v-btn></router-link> 
+        <router-link :to="{name:'Dashboard'}"><v-btn icon="" class="d-block text-center mx-auto mb-9"><Dashborad></Dashborad></v-btn></router-link> 
+        <router-link :to="{name:'ListItems'}"><v-btn icon="" class="d-block text-center mx-auto mb-9"><List></List></v-btn></router-link> 
+        <router-link :to="{name:'Swagger'}"> <v-btn icon="" class="d-block text-center mx-auto mb-9"><Api/></v-btn></router-link> 
     </v-navigation-drawer>
     <v-app-bar app clipped-left >
         <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>

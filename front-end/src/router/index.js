@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from "vue-router";
-import home from "@/components/Pages/Ghaphics/ChartsGraphics.vue";
-import ListItem from "@/components/Pages/ListItem/ListView.vue"
-import API from "@/components/Pages/API_Swagger/Swagger_api.vue"
+import Dashboard from "@/components/pages/dashboard/DashBoard.vue";
+import ListItem from "@/components/pages/listItems/ListItems.vue"
+import API from "@/components/pages/docAPISwagger/SwaggerApi.vue"
 
 Vue.use(Router)
 
@@ -10,19 +10,17 @@ export default new Router({
     routes:[
         {
             path: "/",
-            name: "home",
-            component: home
+            name: "Dashboard",
+            component: Dashboard
         },
-       
         {
             path: "/Lista_de_Gastos",
-            name: "view",
+            name: "ListItems",
             component: ListItem
         },
-    
         {
             path: "/Apis",
-            name: "lista_endpoints",
+            name: "Swagger",
             component: API
         },
     ]
