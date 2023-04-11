@@ -13,34 +13,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import br.com.andreramos.privateManager.exeptionNotFoud.ExeptionNotFound;
-import br.com.andreramos.privateManager.model.Tipoitem;
-import br.com.andreramos.privateManager.service.TipoItemService;
+import br.com.andreramos.privateManager.model.Categories;
+import br.com.andreramos.privateManager.service.CategoriesService;
 
 @RestController()
 @RequestMapping("/tipo_items")
 public class ControllerTipoItem {
 	
 	@Autowired
-	private TipoItemService _tipoitemservice;
+	private CategoriesService _categoriesService;
 	
 	@GetMapping
-	public List<Tipoitem> Get(){
-		return _tipoitemservice.ToList();
+	public List<Categories> Get(){
+		return _categoriesService.ToList();
 	}
 	
 	@PostMapping
-	public Tipoitem Post(@RequestBody Tipoitem tipoitem) {
+	public Categories Post(@RequestBody Categories category) {
 		try {
-			return _tipoitemservice.toInsert(tipoitem);
+			return _categoriesService.toInsert(category);
 		}catch (ExeptionNotFound error) {
 			throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED, "Não foi possivel incluir um noto tipo de item.", error);
 		}
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Tipoitem>  Put(@PathVariable Short id, @RequestBody Tipoitem newTipoitem) {
+	public ResponseEntity<Categories>  Put(@PathVariable Short id, @RequestBody Categories newCategory) {
 		try {
-			return _tipoitemservice.ToEdit(id, newTipoitem);
+			return _categoriesService.ToEdit(id, newCategory);
 		}catch (ExeptionNotFound error) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Forma de Pagemento não encontrada.", error);
 		}
@@ -50,7 +50,7 @@ public class ControllerTipoItem {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> Delete(@PathVariable Short id){
 		try {
-			return _tipoitemservice.ToDelete(id);
+			return _categoriesService.ToDelete(id);
 		}catch (ExeptionNotFound error) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "O id("+id+") não foi encontrado.", error);
 		}

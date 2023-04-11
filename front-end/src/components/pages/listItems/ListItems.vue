@@ -1,5 +1,5 @@
 <template>
-  <v-data-table :headers="header" :items="produtos" :items-per-page="20" class="elevation-1">
+  <v-data-table :headers="header" :items="items" :items-per-page="20" class="elevation-1">
    
     <template v-slot:top>
       <v-alert show  prominent :type="menssager.type" v-for="menssager in menssagers" :key="menssager.texto">{{ menssager.texto }}</v-alert>
@@ -23,19 +23,19 @@
                 <v-form ref="form" v-model="valid" lazy-validation>
                 <v-row>
                   <v-col cols="12">
-                    <v-text-field v-model="newRegister.descricao" label="DESCRIÇÃO *" required></v-text-field>
+                    <v-text-field v-model="newRegister.description" label="DESCRIÇÃO *" required></v-text-field>
                   </v-col>
                   <v-col cols="12">
-                    <v-text-field v-model="newRegister.dataComprar" value="04/06/2023" type="date" label="DATA DA COMPRA *" required></v-text-field>
+                    <v-text-field v-model="newRegister.dateBuy" value="04/06/2023" type="date" label="DATA DA COMPRA *" required></v-text-field>
                   </v-col>
                   <v-col cols="12">
-                    <v-select v-model="newRegister.tipoItem" :items="tipo" label="TIPO *" required></v-select>
+                    <v-select v-model="newRegister.category" :items="categories" label="TIPO *" required></v-select>
                   </v-col>
                   <v-col cols="12">
-                    <v-select v-model="newRegister.formaPagamennto" :items="formaPagementos" label="FORMA DE PAGAMENTO *" required></v-select>
+                    <v-select v-model="newRegister.paymentMethod" :items="paymentMethods" label="FORMA DE PAGAMENTO *" required></v-select>
                   </v-col>
                   <v-col cols="12">
-                    <v-text-field v-model="newRegister.valor" value="10.00" prefix="$" label="VALOR *" type="number" required></v-text-field>
+                    <v-text-field v-model="newRegister.price" value="10.00" prefix="$" label="VALOR *" type="number" required></v-text-field>
                   </v-col>
                 </v-row>
               </v-form>
@@ -81,28 +81,26 @@ export default {
   data: () => ({
     header: [
       { text: "CÓDIGO", value: "id" },
-      { text: "DESCRIÇÃO", value: "descricao" },
-      { text: "DATA DA COMPRA", value: "dataComprar" },
-      { text: "TIPO", value: "tipoItem" },
-      { text: "FORMA DE PAGEMENTO", value: "formaPagamennto" },
-      { text: "VALOR", value: "valor" },
+      { text: "DESCRIÇÃO", value: "description" },
+      { text: "DATA DA COMPRA", value: "dateBuy" },
+      { text: "TIPO", value: "category" },
+      { text: "FORMA DE PAGEMENTO", value: "paymentMethod" },
+      { text: "VALOR", value: "price" },
       { text: "", value: "actions", sortable: false },
     ],
     newRegister: {
-      descricao: "",
-      nomeUsuario: "",
-      dataComprar: "",
-      tipoItem: "",
-      formaPagamennto: "",
-      valor: 0.0,
+      description: "",
+      dateBuy:"",
+      category: "",
+      paymentMethod: "",
+      price: 0.0,
     },
     menssagers:[],
-    produtos: [],
-    formaPagementos: [],
-    tipo: [],
+    items: [],
+    paymentMethods: [],
+    categories: [],
     dialog: false,
     dialogDelete: false,
-    
     editedIndex: -1,
   }),
 
@@ -152,13 +150,13 @@ export default {
 
     initialize() {
      this.$http.get('/items')
-        .then((response) => {this.produtos = response.data;});
+        .then((response) => {this.items = response.data;});
 
         this.$http.get('/tipo_items')
         .then((response) => {
           let teste= response.data
             teste.forEach(element => {
-                this.tipo.push(element['descricao'])
+                this.categories.push(element['description'])
             });
         }).catch(() => {});
 
@@ -166,7 +164,7 @@ export default {
         .then((response) => {
           let teste= response.data
             teste.forEach(element => {
-                this.formaPagementos.push(element['descricao'])
+                this.paymentMethod.push(element['description'])
             });
         }).catch(() => {});
     },

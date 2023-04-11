@@ -26,8 +26,8 @@
 </template> 
 
 <script>
-import ChartPieQtdPerCategories from "./components/ChartPieQtdPerCategories.vue";
-import ChartPieQtdPerPaymentMethods from "./components/ChartPieQtdPerPaymentMethods.vue";
+import ChartPieQtdPerCategories from "./components/chartPieQtdPerCategories/ChartPieQtdPerCategories.vue";
+import ChartPieQtdPerPaymentMethods from "./components/chartPieQtdPerPaymentMethods/ChartPieQtdPerPaymentMethods.vue";
 import ChartLineTotalValueToMonthPerCategories from './components/ChartLineTotalValuePerCategories.vue'
 export default {
   components: {

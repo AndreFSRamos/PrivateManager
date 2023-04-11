@@ -13,25 +13,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import br.com.andreramos.privateManager.exeptionNotFoud.ExeptionNotFound;
-import br.com.andreramos.privateManager.model.FormaPagamento;
-import br.com.andreramos.privateManager.service.FormaPagamentoService;
+import br.com.andreramos.privateManager.model.PaymentMethods;
+import br.com.andreramos.privateManager.service.PaymentMethodsService;
 
 @RestController()
 @RequestMapping("/Formas_de_pagamento")
 public class ControllerFormaPagamento {
 
 	@Autowired
-	private FormaPagamentoService _formaPagamentoService;
+	private PaymentMethodsService _paymentMethodsService;
 	
 	@GetMapping
-	public List<FormaPagamento> Get(){
-		return _formaPagamentoService.ToList();
+	public List<PaymentMethods> Get(){
+		return _paymentMethodsService.ToList();
 	}
 	
 	@PostMapping
-	public FormaPagamento Post(@RequestBody FormaPagamento formaPagamento) {
+	public PaymentMethods Post(@RequestBody PaymentMethods paymentMethods) {
 		try {
-			return _formaPagamentoService.toInsert(formaPagamento);
+			return _paymentMethodsService.toInsert(paymentMethods);
 		}catch (ExeptionNotFound error) {
 			throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED, "Não foi possivel incluir uma nova forma de pagamento.", error);
 		}
@@ -39,9 +39,9 @@ public class ControllerFormaPagamento {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<FormaPagamento>  Put(@PathVariable Short id, @RequestBody FormaPagamento newFormaPagamento) {
+	public ResponseEntity<PaymentMethods>  Put(@PathVariable Short id, @RequestBody PaymentMethods newPaymentMethods) {
 		try {
-			return _formaPagamentoService.ToEdit(id, newFormaPagamento);
+			return _paymentMethodsService.ToEdit(id, newPaymentMethods);
 		}catch (ExeptionNotFound error) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Forma de Pagemento não encontrada.", error);
 		}
@@ -51,7 +51,7 @@ public class ControllerFormaPagamento {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> Delete(@PathVariable Short id){
 		try {
-			return _formaPagamentoService.ToDelete(id);
+			return _paymentMethodsService.ToDelete(id);
 		}catch (ExeptionNotFound error) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "O id("+id+") não foi encontrado.", error);
 		}

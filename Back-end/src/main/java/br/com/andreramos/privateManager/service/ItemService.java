@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import br.com.andreramos.privateManager.exeptionNotFoud.ExeptionNotFound;
 import br.com.andreramos.privateManager.model.Item;
 import br.com.andreramos.privateManager.model.modelDAO.ItemDAO;
@@ -41,8 +40,8 @@ public class ItemService {
 	
 	
 	
-	public Item toInsert(Item newTipoItem) {
-		return	_itemdao.save(newTipoItem);
+	public Item toInsert(Item newItem) {
+		return	_itemdao.save(newItem);
 	}
 	
 	

@@ -19,20 +19,17 @@ public class Item {
 	private Short id;
 	
 	@Column(length = 255, nullable = false)
-	private String descricao;
+	private String description;
 	
 	@Column( nullable = false)
-	private String dataComprar;
+	private String dateBuy;
 	
 	@Column(nullable = false, precision = 5, scale=2)
-	private BigDecimal valor;
+	private BigDecimal price;
 	
-	@Column
-	private String nomeUsuario;
+	@Column(nullable = false)
+	private String paymentMethods;
 	
-	@Column
-	private String formaPagamennto;
-	
-	@Column
-	private String tipoItem;
+	@Column(nullable = false)
+	private String category;
 }

@@ -12,13 +12,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class FormaPagamento {
+public class PaymentMethods {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Short id;
 	
 	@Column(length = 255, nullable = false, unique = true)
-	private String descricao;
+	private String description;
+
+	@Column(nullable = false)
+	private String identifyColor;
 
 }
