@@ -1,14 +1,13 @@
 <template>
-    <v-card class="card" style="height: 500px;">
+    <v-card class="card" outlined style="height: 500px;">
         <LineChartGenerator :data="chartDataCategories" :options="chartOptions"/>
     </v-card>
 </template>
-  
+
 <script>
     import {Chart as ChartJS, CategoryScale,LinearScale, PointElement, LineElement,Title,Tooltip, Legend,} from "chart.js";
     import { Line as LineChartGenerator } from "vue-chartjs";
     ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
-
     export default {
         name: "ChartLine",
         components: {LineChartGenerator},
@@ -34,4 +33,3 @@
         },
     };
 </script>
-  

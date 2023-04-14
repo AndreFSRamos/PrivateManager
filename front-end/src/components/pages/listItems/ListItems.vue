@@ -2,15 +2,15 @@
   <v-data-table :headers="header" :items="items" :items-per-page="20" class="elevation-1">
    
     <template v-slot:top>
-      <v-alert show  prominent :type="menssager.type" v-for="menssager in menssagers" :key="menssager.texto">{{ menssager.texto }}</v-alert>
+      <v-alert show dismissible prominent :type="menssager.type" v-for="menssager in menssagers" :key="menssager.texto">{{ menssager.texto }}</v-alert>
       <v-toolbar flat>
         
         <v-toolbar-title> Lista de Gastos </v-toolbar-title>
         <v-spacer></v-spacer>
 
         <v-dialog v-model="dialog" max-width="500px">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn class="mb-2" v-bind="attrs" v-on="on"> Novo Gasto </v-btn>
+          <template v-slot:activator="{ props }">
+            <v-btn class="mb-2" v-bind="props"> Novo Gasto </v-btn>
           </template>
           
           <v-card>
@@ -20,7 +20,6 @@
 
             <v-card-text>
               <v-container>
-                <v-form ref="form" v-model="valid" lazy-validation>
                 <v-row>
                   <v-col cols="12">
                     <v-text-field v-model="newRegister.description" label="DESCRIÇÃO *" required></v-text-field>
@@ -38,14 +37,13 @@
                     <v-text-field v-model="newRegister.price" value="10.00" prefix="$" label="VALOR *" type="number" required></v-text-field>
                   </v-col>
                 </v-row>
-              </v-form>
               </v-container>
             </v-card-text>
 
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red" text @click="close"> Cancelar </v-btn>
-              <v-btn color="blue darken-1" text @click="save()">Confirmar</v-btn>
+              <v-btn color="blue darken-1" text @click="save">Confirmar</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -55,7 +53,7 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="red" text @click="closeDelete">Cancelar</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm()">Confirmar</v-btn>
+              <v-btn color="blue darken-1" text @click="deleteItemConfirm">Confirmar</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -74,7 +72,6 @@
 </template>
 
 <script>
-
 export default {
   name: "ListView",
   components: {},
@@ -114,15 +111,7 @@ export default {
     },
   },
 
-  watch: {
-    dialog(val) {
-      val || this.close();
-    },
-    dialogDelete(val) {
-      val || this.closeDelete();
-    },
-  },
-
+ 
   methods: {
     
     editItem(item) {
@@ -136,8 +125,6 @@ export default {
       this.editedIndex = item.id
     },
 
-    
-
     close() {
       this.dialog = false;
       this.editedIndex = -1;
@@ -148,23 +135,23 @@ export default {
       this.editedIndex = -1;
     },
 
-    initialize() {
-     this.$http.get('/items')
+  initialize() {
+    this.$http.get('/items')
         .then((response) => {this.items = response.data;});
 
-        this.$http.get('/tipo_items')
+    this.$http.get('/tipo_items')
         .then((response) => {
-          let teste= response.data
-            teste.forEach(element => {
-                this.categories.push(element['description'])
-            });
+        let teste= response.data
+        teste.forEach(element => {
+        this.categories.push(element['description'])
+    });
         }).catch(() => {});
 
-        this.$http.get('/Formas_de_pagamento')
+    this.$http.get('/Formas_de_pagamento')
         .then((response) => {
-          let teste= response.data
-            teste.forEach(element => {
-                this.paymentMethod.push(element['description'])
+        let teste= response.data
+        teste.forEach(element => {
+        this.paymentMethods.push(element['description'])
             });
         }).catch(() => {});
     },

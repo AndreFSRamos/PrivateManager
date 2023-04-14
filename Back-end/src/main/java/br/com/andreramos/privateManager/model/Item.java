@@ -28,7 +28,7 @@ public class Item {
 	private BigDecimal price;
 	
 	@Column(nullable = false)
-	private String paymentMethods;
+	private String paymentMethod;
 	
 	@Column(nullable = false)
 	private String category;
