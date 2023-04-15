@@ -4,7 +4,7 @@
     <v-list-item three-line>
       <v-list-item-content>
         <v-list-item-subtitle>
-          <Pie class="charts" v-if="loaded" :data="chartDataCategories" :options="chartOptions"/>
+          <Pie v-if="loaded" :data="chartDataCategories" :options="chartOptions"/>
         </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
@@ -23,7 +23,7 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "vue-chartjs";
 import AddNewCategory from './components/AddNewCategory.vue';
-import DeleteCategory from './components/DeleteCategory.vue';
+import DeleteCategory from './components/EditEndDeletecategory.vue';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -42,6 +42,12 @@ export default {
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false,
+        layout: {
+            padding:{
+              top:15,
+              bottom:15
+            }
+        }
       },
       loaded: false,
     };

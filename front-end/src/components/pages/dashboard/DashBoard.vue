@@ -4,7 +4,13 @@
       <v-col>
         <v-card class="card" outlined>
           <v-toolbar flat >
-            <v-toolbar-title>Dashboard</v-toolbar-title><v-spacer/><v-btn>teste</v-btn>
+            <v-toolbar-title>Dashboard</v-toolbar-title><v-spacer/><v-text-field
+            label="Filled"
+            placeholder="Dense & Rounded"
+            filled
+            rounded
+         
+          ></v-text-field>
           </v-toolbar>
         </v-card>
       </v-col>
@@ -22,7 +28,7 @@
 <script>
   import ChartPieQtdPerCategories from "./components/chartPieQtdPerCategories/ChartPieQtdPerCategories.vue";
   import ChartPieQtdPerPaymentMethods from "./components/chartPieQtdPerPaymentMethods/ChartPieQtdPerPaymentMethods.vue";
-  import ChartLineTotalValueToMonthPerCategories from './components/ChartLineTotalValuePerCategories.vue'
+  import ChartLineTotalValueToMonthPerCategories from './components/chartlineTotalValuePerMonth/ChartLineTotalValuePerCategories.vue'
   export default {
     components: {
       ChartPieQtdPerCategories,
@@ -32,11 +38,8 @@
   };
 </script>
 
-<style>
+<style scoped>
   .card{
-    padding: 14px;
-  }
-  .charts{
-    padding: 18px;
+    padding: 8px;
   }
 </style>

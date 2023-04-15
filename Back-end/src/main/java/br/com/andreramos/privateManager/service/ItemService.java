@@ -23,8 +23,6 @@ public class ItemService {
 	}
 	
 	
-	
-	
 	public ResponseEntity<Item> ToEdit(Short id, Item newItem){
 		Optional<Item> oldItem = _itemdao.findById(id);
 		
