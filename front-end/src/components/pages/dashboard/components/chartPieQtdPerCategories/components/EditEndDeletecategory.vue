@@ -3,7 +3,7 @@
         <template v-slot:activator="{ on, attrs }">
             <v-btn fab v-bind="attrs" v-on="on"><IconDelete/></v-btn>
         </template>
-
+      
         <v-card>
             <v-card-title><span class="text-h5">Editar & Deletar</span></v-card-title>
 
@@ -18,19 +18,21 @@
                 <template v-slot:no-data><v-btn @click="initialize"> Atualizar </v-btn></template>
             </v-data-table>
 
-            <v-card-text  v-if="showEdit">
-                <v-container>
-                    <v-row>
-                        <v-col cols="12">
-                            <v-text-field v-model="newCategory.description" label="Descrição *" required></v-text-field>
-                        </v-col>
-                        <v-col cols="12">
-                            <v-color-picker v-model="newCategory.identifyColor" dot-size="25" swatches-max-height="200" width="500px" required/>
-                        </v-col>
-                    </v-row>
-                </v-container>
-                <small>*indicates required field</small>
-            </v-card-text>
+            <v-expand-transition>
+                <v-card-text  v-if="showEdit">
+                    <v-container>
+                        <v-row>
+                            <v-col cols="12">
+                                <v-text-field v-model="newCategory.description" label="Descrição *" required></v-text-field>
+                            </v-col>
+                            <v-col cols="12">
+                                <v-color-picker v-model="newCategory.identifyColor" dot-size="25" swatches-max-height="200" width="500px" required/>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                    <small>*indicates required field</small>
+                </v-card-text>
+            </v-expand-transition>
 
             <v-card-actions>    
                 <v-spacer/>
@@ -38,7 +40,7 @@
                 <v-btn color="blue darken-1" v-if="showEdit" text @click="update">Save</v-btn>
             </v-card-actions>
         </v-card>
-
+  
     </v-dialog>
 </template>
   
@@ -46,6 +48,10 @@
 import IconDelete from "vue-material-design-icons/Delete.vue";
 export default {
   components: { IconDelete },
+  props:{
+    atualize: Function,
+    teste: []
+  },
   name: "DeleteCategory",
   data() {
     return {
@@ -54,7 +60,7 @@ export default {
         { text: "Cor", value: "identifyColor" },
         { text: "", value: "actions" },
     ],
-    categories: [],
+    categories: this.teste,
     newCategory: {
         id: "",
         description: "",
@@ -74,8 +80,9 @@ export default {
         this.newCategory = item
     },
 
-    deleteItemConfirm(id) {
-      this.$http.delete("/tipo_items/"+id).then(()=>{});
+    async deleteItemConfirm(id) {
+      await this.$http.delete("/tipo_items/"+id).then(()=>{});
+      await this.atualize()
       this.dialogDelete = false
     },
 
@@ -90,8 +97,9 @@ export default {
         this.dialog = false;
     },
 
-    update() {
-      this.$http.put("/tipo_items/" + this.newCategory.id, this.newCategory).then(()=>{});
+   async update() {
+    await this.$http.put("/tipo_items/" + this.newCategory.id, this.newCategory).then(()=>{});
+     await this.atualize()
       this.dialog = false;
     },
 

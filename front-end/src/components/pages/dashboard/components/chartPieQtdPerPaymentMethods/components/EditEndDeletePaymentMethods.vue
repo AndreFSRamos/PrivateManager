@@ -17,21 +17,21 @@
                 </template>
                 <template v-slot:no-data><v-btn @click="initialize"> Atualizar </v-btn></template>
             </v-data-table>
-
-            <v-card-text  v-if="showEdit">
-                <v-container>
-                    <v-row>
-                        <v-col cols="12">
-                            <v-text-field v-model="newCategory.description" label="Descrição *" required></v-text-field>
-                        </v-col>
-                        <v-col cols="12">
-                            <v-color-picker v-model="newCategory.identifyColor" dot-size="25" swatches-max-height="200" width="500px" required/>
-                        </v-col>
-                    </v-row>
-                </v-container>
-                <small>*indicates required field</small>
-            </v-card-text>
-
+            <v-expand-transition>
+                <v-card-text  v-if="showEdit">
+                    <v-container>
+                        <v-row>
+                            <v-col cols="12">
+                                <v-text-field v-model="newCategory.description" label="Descrição *" required></v-text-field>
+                            </v-col>
+                            <v-col cols="12">
+                                <v-color-picker v-model="newCategory.identifyColor" dot-size="25" swatches-max-height="200" width="500px" required/>
+                            </v-col>
+                        </v-row>
+                    </v-container>
+                    <small>*indicates required field</small>
+                </v-card-text>
+            </v-expand-transition>
             <v-card-actions>    
                 <v-spacer/>
                 <v-btn  color="blue darken-1" text @click="close">Close</v-btn>

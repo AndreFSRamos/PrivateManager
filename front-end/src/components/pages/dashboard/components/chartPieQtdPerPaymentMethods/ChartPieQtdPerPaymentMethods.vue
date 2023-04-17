@@ -1,6 +1,6 @@
 <template>
    <v-card class="card" outlined>
-    <v-row justify="center"><h1><p style="font-size: 2rem;">Quantidade de gastos por Forma de Pagamento</p></h1></v-row>
+    <v-row justify="center"><h3><p>Quantidade de gastos por Forma de Pagamento</p></h3></v-row>
     <v-list-item three-line>
       <v-list-item-content>
         <v-list-item-subtitle>
@@ -29,14 +29,23 @@
   export default {
     name: "ChartPieQtdPerPaymentMethods",
     components: { Doughnut, AddNewPaymentMethods, EditEndDeletePaymentMethods},
+    props:['searchDate'],
     data() {
       return {
+        dateSearch: this.searchDate,
         paymentMethods: [],
         identifyColorPaymentMethods:[],
         chartDataPaymentMethods: [],
+        dataValues:[],
         chartOptions: {
           responsive: true,
           maintainAspectRatio: false,
+           layout: {
+            padding:{
+              top:15,
+              bottom:15
+            }
+        }
         },
         loaded: false,
         dialog:false,
@@ -56,12 +65,19 @@
           });
         })
         .catch(() => {this.loaded = false;});
+
+        for(let i =0 ; i < this.paymentMethods.length; i++){
+          console.log('teste' +this.searchDate)
+          await this.$http.get('/items/total/paymmentMethods?findReference='+this.paymentMethods[i]+'&findDate='+this.searchDate).then((total)=>{
+            this.dataValues.push(total.data)
+          });
+        }
   
       this.chartDataPaymentMethods = {
         labels: this.paymentMethods,
         datasets: [
           {
-            data: [10, 20, 40, 50],
+            data: this.dataValues,
             backgroundColor: this.identifyColorPaymentMethods,
           },
         ],

@@ -15,13 +15,9 @@ public class ItemService {
 	@Autowired
 	private ItemDAO _itemdao;
 
-	
-	
-	
 	public List<Item> ToList(){
 		return _itemdao.findAll();
 	}
-	
 	
 	public ResponseEntity<Item> ToEdit(Short id, Item newItem){
 		Optional<Item> oldItem = _itemdao.findById(id);
@@ -36,13 +32,9 @@ public class ItemService {
 		}
 	}
 	
-	
-	
 	public Item toInsert(Item newItem) {
 		return	_itemdao.save(newItem);
 	}
-	
-	
 	
 	public ResponseEntity<Object> ToDelete(Short id){
 		Optional<Item> item = _itemdao.findById(id);
@@ -54,6 +46,13 @@ public class ItemService {
 			throw new ExeptionNotFound();
 		}
 	}
-	
+
+	public int getQtdTotalPerCategory(String findReference, String findDate){
+		return _itemdao.findQtdTotalPerCategory(findReference, findDate);
+	}
+
+	public int getQtdTotalPerPaymentMethods(String findReference, String findDate){
+		return _itemdao.findQtdtotalPerPaymentMethods(findReference, findDate);
+	}
 	
 }

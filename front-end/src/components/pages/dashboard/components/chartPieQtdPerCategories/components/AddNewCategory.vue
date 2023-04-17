@@ -31,6 +31,9 @@
 import IconAdd from "vue-material-design-icons/Plus.vue";
 export default {
   components:{IconAdd},
+  props:{
+    saveItem: Function
+  },
   name: "AddNewCategory",
   data() {
     return {
@@ -43,7 +46,7 @@ export default {
   },
   methods: {
     save() {
-      this.$http.post("/tipo_items", this.newCategory);
+      this.saveItem(this.newCategory)
       this.dialog = false;
     },
     showAdd(){

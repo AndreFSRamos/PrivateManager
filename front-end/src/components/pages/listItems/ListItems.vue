@@ -9,8 +9,8 @@
         <v-spacer></v-spacer>
 
         <v-dialog v-model="dialog" max-width="500px">
-          <template v-slot:activator="{ props }">
-            <v-btn class="mb-2" v-bind="props"> Novo Gasto </v-btn>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn class="mb-2" v-bind="attrs" v-on="on"> Novo Gasto </v-btn>
           </template>
           
           <v-card>
@@ -166,7 +166,6 @@ export default {
     },
 
     save() {
-      if(this.$refs.form.validate()){
         this.newRegister.id = this.editedIndex
         if(this.editedIndex > -1){ 
           this.$http.put('items/' + this.newRegister.id, this.newRegister).then(()=>{ 
@@ -182,7 +181,6 @@ export default {
           });
         }
         this.dialog = false;
-      }
     }
   },
 };

@@ -3,7 +3,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,14 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import br.com.andreramos.privateManager.exeptionNotFoud.ExeptionNotFound;
 import br.com.andreramos.privateManager.model.Item;
 import br.com.andreramos.privateManager.service.ItemService;
 
-
-@CrossOrigin(origins = "http://localhost:8080")
 @RestController()
 @RequestMapping("/items")
 public class ControllerItem {
@@ -56,5 +54,14 @@ public class ControllerItem {
 		}catch (ExeptionNotFound error) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "O id("+id+") não foi encontrado.", error);
 		}
+	}
+	@GetMapping("/total/categotry")
+	public int getQtdTotalPerCategory(@RequestParam(required = true) String findReference, @RequestParam(required = true) String findDate){
+		return _itemService.getQtdTotalPerCategory( findReference, findDate);
+	}
+
+	@GetMapping("/total/paymmentMethods")
+	public int getQtdTotalPerPaymentMethods(@RequestParam(required = true) String findReference, @RequestParam(required = true) String findDate){
+		return _itemService.getQtdTotalPerPaymentMethods( findReference, findDate);
 	}
 }
