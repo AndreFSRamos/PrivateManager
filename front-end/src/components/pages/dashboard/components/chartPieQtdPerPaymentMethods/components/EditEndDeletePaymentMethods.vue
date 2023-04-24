@@ -75,7 +75,7 @@ export default {
     },
 
     deleteItemConfirm(id) {
-      this.$http.delete("/tipo_items/"+id).then(()=>{});
+      this.$http.delete("/Formas_de_pagamento/"+id).then(()=>{});
       this.dialogDelete = false
     },
 
@@ -91,12 +91,12 @@ export default {
     },
 
     update() {
-      this.$http.put("/tipo_items/" + this.newCategory.id, this.newCategory).then(()=>{});
+      this.$http.put("/Formas_de_pagamento/" + this.newCategory.id, this.newCategory).then(()=>{});
       this.dialog = false;
     },
 
     initialize(){
-        this.$http.get('/tipo_items').then((response) => {this.categories = response.data});
+        this.$http.get('/Formas_de_pagamento').then((response) => {this.categories = response.data});
     }
 
   },

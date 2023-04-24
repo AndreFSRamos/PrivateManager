@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     save() {
-      this.$http.post("/tipo_items", this.newCategory);
+      this.$http.post("/Formas_de_pagamento", this.newCategory);
       this.dialog = false;
     },
     showAdd(){

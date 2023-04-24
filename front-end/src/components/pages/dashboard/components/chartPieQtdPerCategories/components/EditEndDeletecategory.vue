@@ -50,7 +50,9 @@ export default {
   components: { IconDelete },
   props:{
     atualize: Function,
-    teste: []
+    teste: [],
+    delete: Function,
+    updateItem: Function
   },
   name: "DeleteCategory",
   data() {
@@ -67,7 +69,6 @@ export default {
         identifyColor: "",
     },
     dialog: false,
-    dialogDelete: false,
     showEdit:false,
     editedIndex: -1,
     };
@@ -76,18 +77,18 @@ export default {
   methods: {
 
     setEdit(item){
+        
         this.showEdit = true
         this.newCategory = item
     },
 
     async deleteItemConfirm(id) {
-      await this.$http.delete("/tipo_items/"+id).then(()=>{});
-      await this.atualize()
-      this.dialogDelete = false
+        this.delete(id)
+        this.dialog = false;
+        this.created()
     },
 
     closeDelete() {
-      this.dialogDelete = false
       this.showEdit  =false
       this.editedIndex = -1;
     },
@@ -97,19 +98,15 @@ export default {
         this.dialog = false;
     },
 
-   async update() {
-    await this.$http.put("/tipo_items/" + this.newCategory.id, this.newCategory).then(()=>{});
-     await this.atualize()
-      this.dialog = false;
+    async update() {
+        this.updateItem(this.newCategory)
+        this.dialog = false;
     },
 
-    initialize(){
-        this.$http.get('/tipo_items').then((response) => {this.categories = response.data});
-    }
+    initialize(){this.categories = this.teste}
 
   },
 
-  created() {this.initialize()},
 
 };
 </script>

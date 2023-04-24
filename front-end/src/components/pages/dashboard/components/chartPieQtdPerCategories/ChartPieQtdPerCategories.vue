@@ -12,7 +12,7 @@
       <v-row justify="center">
         <v-btn outlined icon text><AddNewCategory :saveItem="save"/></v-btn>
        <div style="width: 50px;"></div>
-        <v-btn outlined icon text><DeleteCategory :atualize="initilize" :teste="fullCategories"/></v-btn>
+        <v-btn outlined icon text><DeleteCategory :atualize="initilize" :teste="fullCategories" :delete="deleteItemConfirm" :updateItem="update"/></v-btn>
         <v-btn @click="initilize()" text>teste</v-btn>
       </v-row>
       <div style="height: 50px;"></div>
@@ -62,9 +62,19 @@
 
     methods:{
 
-   async save(item) {
-     await  this.$http.post("/tipo_items", item);
+    async save(item) {
+      await  this.$http.post("/tipo_items", item);
       await  this.initilize()
+    },
+
+    async deleteItemConfirm(id) {
+        await this.$http.delete("/tipo_items/"+id);
+        await this.initilize()
+    },
+
+    async update(item) {
+        await this.$http.put("/tipo_items/" + item.id, item);
+        await this.initilize()
     },
 
      async initilize(){
@@ -85,8 +95,7 @@
         });
 
         for(let i =0 ; i < this.categories.length; i++){
-          console.log('teste' +this.searchDate)
-         await this.$http.get('/items/total/categotry?findReference='+this.categories[i]+'&findDate='+this.searchDate).then((total)=>{
+            await this.$http.get('/items/total/categotry?findReference='+this.categories[i]+'&findDate='+this.searchDate).then((total)=>{
             this.dataValues.push(total.data)
           });
         }

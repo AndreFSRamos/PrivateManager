@@ -1,5 +1,5 @@
 <template>
-    <iframe class="frame" frameborder="0" scrolling="true" src="http://localhost:8080/swagger-ui/index.html#/"></iframe>
+    <iframe class="frame" frameborder="0" scrolling="true" src="http://localhost:8050/swagger-ui/index.html#/"></iframe>
 </template>
 
 <script>
