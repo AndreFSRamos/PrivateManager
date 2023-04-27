@@ -1,38 +1,84 @@
 <template>
-    <v-card class="card" outlined style="height: 500px;">
-        <LineChartGenerator :data="chartDataCategories" :options="chartOptions"/>
-    </v-card>
+  <v-card class="card" outlined style="height: 500px;">
+    <LineChartGenerator v-model="chartDataCategories" v-if="loaded" :data="chartDataCategories" :options="chartOptions" />
+  </v-card>
 </template>
 
 <script>
-    import {Chart as ChartJS, CategoryScale,LinearScale, PointElement, LineElement,Title,Tooltip, Legend,} from "chart.js";
-    import { Line as LineChartGenerator } from "vue-chartjs";
-    ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
-    export default {
-        name: "ChartLine",
-        components: {LineChartGenerator},
-        data() {
-            return {
-            categories: [],
-            chartDataCategories: {
-                labels: [
-                    '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15',
-                    '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'
-                ],
-                datasets: [
-                    {
-                    label: 'TOTAL DE GASTOS POR MÊS',
-                    backgroundColor: '#05B7F7',
-                    data: [40, 39, 10, 40, 39, 80, 40, 10, 40, 39, 80, 40],
-                    },
-                ],
-            },
-            chartOptions: {
-                responsive: true,
-                maintainAspectRatio: false,
-            },
-            loaded: false,
-            };
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, } from "chart.js";
+import { Line as LineChartGenerator } from "vue-chartjs";
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+export default {
+  name: "ChartLine",
+  props:{
+    yearAndMonth : String
+  },
+  components: { LineChartGenerator },
+  data() {
+    return {
+      valuesDay: [],
+      days: [],
+      chartDataCategories: [],
+      chartOptions: {
+        responsive: true,
+    
+        maintainAspectRatio: false,
+        legend: {
+          labels: {
+            boxWidth: 10,
+          },
+          position: "top",
         },
+        animation: {
+          duration: 2000,
+          easing: "easeInOutQuart",
+        },
+      },
+      loaded: false,
     };
+  },
+
+  methods: {
+    async initilize() {
+      this.valuesDay = [],
+      this.days = [],
+      await this.$http
+        .get("/items/total/totalPerDayTheMonth?yearAndMonth="+this.yearAndMonth)
+        .then((response) => {
+         response.data.forEach(element => {
+            this.valuesDay.push(element)
+         });
+         
+        })
+        .catch(() => {
+          this.loaded = false;
+        });
+
+        for (let i = 1; i <= 31; i++) {
+          this.days.push(i)
+        }
+
+        this.chartDataCategories = {
+        labels: this.days,
+        datasets: [
+          {
+            label: 'TOTAL DE GASTOS POR DIA',
+            data: this.valuesDay,
+            backgroundColor: "rgba(224, 248, 255, 0.4)",
+            borderColor: "#5cddff",
+            lineTension: 0.3,
+            pointBackgroundColor: "#5cddff",
+          },
+        ],
+      }
+    }
+  },
+
+  async mounted() {
+    this.loaded = false;
+    await this.initilize()
+    this.loaded = true;
+  },
+
+};
 </script>

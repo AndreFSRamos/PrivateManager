@@ -3,7 +3,7 @@
     <v-dialog v-model="dialog" persistent max-width="400px">
       <template v-slot:activator="{ on, attrs }"><v-btn fab v-bind="attrs" v-on="on"><IconAdd/></v-btn></template>
       <v-card>
-        <v-card-title><span class="text-h5">Adiconar nova categoria</span></v-card-title>
+        <v-card-title><span class="text-h5">Adiconar nova forma de pagamento</span></v-card-title>
         <v-card-text>
           <v-container>
             <v-row>

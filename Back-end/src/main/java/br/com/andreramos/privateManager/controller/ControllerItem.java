@@ -1,4 +1,5 @@
 package br.com.andreramos.privateManager.controller;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -63,5 +64,11 @@ public class ControllerItem {
 	@GetMapping("/total/paymmentMethods")
 	public int getQtdTotalPerPaymentMethods(@RequestParam(required = true) String findReference, @RequestParam(required = true) String findDate){
 		return _itemService.getQtdTotalPerPaymentMethods( findReference, findDate);
+	}
+
+	@GetMapping("/total/totalPerDayTheMonth")
+	public ArrayList<Double> totalPerDayTheMonth(@RequestParam(required = true) String yearAndMonth){
+		System.out.println(yearAndMonth);
+		return _itemService.getTotalPerDayTheMonth(yearAndMonth);
 	}
 }

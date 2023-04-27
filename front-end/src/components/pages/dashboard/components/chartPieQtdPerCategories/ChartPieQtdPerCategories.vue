@@ -13,7 +13,6 @@
         <v-btn outlined icon text><AddNewCategory :saveItem="save"/></v-btn>
        <div style="width: 50px;"></div>
         <v-btn outlined icon text><DeleteCategory :atualize="initilize" :teste="fullCategories" :delete="deleteItemConfirm" :updateItem="update"/></v-btn>
-        <v-btn @click="initilize()" text>teste</v-btn>
       </v-row>
       <div style="height: 50px;"></div>
     </v-card-actions>

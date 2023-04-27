@@ -67,7 +67,6 @@
         .catch(() => {this.loaded = false;});
 
         for(let i =0 ; i < this.paymentMethods.length; i++){
-          console.log('teste' +this.searchDate)
           await this.$http.get('/items/total/paymmentMethods?findReference='+this.paymentMethods[i]+'&findDate='+this.searchDate).then((total)=>{
             this.dataValues.push(total.data)
           });

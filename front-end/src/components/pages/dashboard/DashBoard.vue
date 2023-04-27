@@ -38,7 +38,7 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <ChartLineTotalValueToMonthPerCategories/>
+        <ChartLineTotalValueToMonthPerCategories :yearAndMonth="date"/>
       </v-col>
     </v-row>
   </div>
@@ -59,7 +59,6 @@ export default {
       date: new Date().toISOString().substr(0, 7),
       menu: false,
       modal: false,
-      months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
     }
   }
 };
